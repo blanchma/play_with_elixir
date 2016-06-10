@@ -1,0 +1,10 @@
+{:ok, file } = File.open('./unsorted.txt')
+content = IO.read(file, :all)
+unsorted_content = String.split(content, "\n")
+sorted_content = Enum.sort(unsorted_content)
+pretty_printed = Enum.map(sorted_content, fn(word) -> "#{word}\n" end)
+:ok = File.close(file)
+{:ok, file} = File.open "sorted.txt", [:write]
+IO.write(file, pretty_printed)
+:ok = File.close(file)
+
